@@ -265,3 +265,6 @@ vet:
 .PHONY: fmt
 fmt:
 	goimports -l -w -local github.com/cloudflare/cloudflared $$(go list -mod=vendor -f '{{.Dir}}' -a ./... | fgrep -v tunnelrpc)
+
+build_android:
+	CGO_ENABLED=1 GOOS=android GOARCH=arm64 CC=/Users/onekung/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android30-clang go1.20 build -a -installsuffix cgo -ldflags="-s -w" ./cmd/cloudflared
